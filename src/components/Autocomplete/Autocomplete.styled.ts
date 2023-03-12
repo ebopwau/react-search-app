@@ -28,10 +28,28 @@ export const AutocompleteContainer = styled.div`
     }
 `;
 
-export const AutocompleteItemContainer = styled.div`
+type TAutocompleteItemContainer = {
+    history: boolean
+}
+
+export const AutocompleteItemContainer = styled.div<TAutocompleteItemContainer>`
     cursor: pointer;
     position: relative;
-    padding: 8px 8px 8px 50px;
+    padding: 8px 18px 8px 50px;
+    display: flex;
+    justify-content: space-between;
+
+    & span {
+      color: ${({ history }) => (history ? '#52188C' : 'inherit')};
+    }
+
+    & button {
+      cursor: pointer;
+      background-color: transparent;
+      color: #70757A;
+      outline: none;
+      border: none;
+    }
 
     &:hover {
       background-color: #EEEEEE;
