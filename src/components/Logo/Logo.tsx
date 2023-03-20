@@ -1,5 +1,5 @@
 import React, { FC } from 'react';
-import { LogoContainer } from './LogoContainer';
+import { LogoContainer } from './LogoContainer.styled';
 
 type TLogo = {
     fontSize?: number;

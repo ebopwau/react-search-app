@@ -3,7 +3,9 @@ import { AutocompleteContainer } from './Autocomplete.styled';
 import { TAutocomplete } from './types';
 import { AutocompleteItem } from './AutocompleteItem';
 
-export const Autocomplete: FC<TAutocomplete> = memo(({ items, onItemClick, onItemRemove }) => (
+export const Autocomplete: FC<TAutocomplete> = memo(({
+  items, onItemClick, onItemRemove,
+}) => (
   <AutocompleteContainer>
     {
       items.map(({ text, type, id }) => (

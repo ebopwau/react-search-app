@@ -7,7 +7,6 @@ export const AutocompleteContainer = styled.div`
     line-height: 16px;
     position: absolute;
     top: 46px;
-    left: 0px;
     width: 100%;
     padding-top: 5px;
     padding-bottom: 20px;
@@ -16,6 +15,7 @@ export const AutocompleteContainer = styled.div`
     border-bottom-left-radius: 24px;
     border-bottom-right-radius: 24px;
     overflow: hidden;
+    background-color: #FFFFFF;
 
     &::after {
       content: '';

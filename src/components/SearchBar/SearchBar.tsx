@@ -1,6 +1,7 @@
 import React, {
   ChangeEventHandler, useCallback, useState, FC, useRef, FocusEventHandler,
 } from 'react';
+import { useNavigate } from 'react-router-dom';
 
 import mockData from 'mock.json';
 import { useClickOutside, useComposedItems, useLocalStorage } from 'utils';
@@ -11,12 +12,17 @@ import { SearchBarContainer } from './SearchBar.styled';
 
 const mockDataNormalizer = (): TItemData[] => mockData.map(({ id, title }) => ({ text: title, id, type: AutocompleteItemType.search }));
 
-export const SearchBar: FC = () => {
+type TSearchBar = {
+  initialValue?: string;
+}
+
+export const SearchBar: FC<TSearchBar> = ({ initialValue = '' }) => {
   const [itemsData] = useState<TItemData[]>(mockDataNormalizer);
   const [historyItems, setLocalStorageValue] = useLocalStorage<TItemData[]>('historyItems', []);
 
   const [showAutocomplete, toggleAutocomplete] = useState(false);
-  const [inputValue, setInputValue] = useState('');
+  const [inputValue, setInputValue] = useState(() => initialValue);
+  const navigate = useNavigate();
 
   const searchBarRef = useRef<HTMLDivElement>(null);
   const composedItems = useComposedItems(inputValue, historyItems, itemsData);
@@ -35,6 +41,7 @@ export const SearchBar: FC = () => {
 
   const onItemClick = useCallback((data: TItemData) => {
     const { text, id } = data;
+
     setInputValue(text);
 
     if (!historyItems.find(({ id: historyItemId }) => id === historyItemId)) {
@@ -42,7 +49,11 @@ export const SearchBar: FC = () => {
     }
 
     toggleAutocomplete(false);
-  }, [historyItems, setLocalStorageValue]);
+    navigate({
+      pathname: '/search',
+      search: `?request=${text}`,
+    });
+  }, [historyItems, navigate, setLocalStorageValue]);
 
   const onItemRemove = useCallback(({ id }: TItemData) => {
     const deleteItemIdx = historyItems.findIndex(({ id: historyItemId }) => historyItemId === id);
@@ -76,4 +87,8 @@ export const SearchBar: FC = () => {
       }
     </SearchBarContainer>
   );
+};
+
+SearchBar.defaultProps = {
+  initialValue: '',
 };
