@@ -1,7 +1,10 @@
 import React, { FC } from 'react';
 import { useSearchParams } from 'react-router-dom';
 
-import { Logo, SearchBar, SearchItem } from 'components';
+import {
+  Logo, SearchBar, SearchItem, Pagination,
+} from 'components';
+import mockSearchResults from 'mockSearchResults.json';
 import { SearchPageContainer, SearchBarSection, SearchItemWrapper } from './SearchPage.styled';
 
 export const View: FC = () => {
@@ -16,10 +19,20 @@ export const View: FC = () => {
       </SearchBarSection>
 
       <SearchItemWrapper>
-        <SearchItem />
-        <SearchItem />
-        <SearchItem />
-        <SearchItem />
+        <Pagination itemsPerPage={10} initPage={1}>
+          {
+            mockSearchResults.map(({
+              id, thumbnail, title, description,
+            }) => (
+              <SearchItem
+                key={id}
+                link={thumbnail}
+                title={title}
+                description={description}
+              />
+            ))
+          }
+        </Pagination>
       </SearchItemWrapper>
     </SearchPageContainer>
   );
