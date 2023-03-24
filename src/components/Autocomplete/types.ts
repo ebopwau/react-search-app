@@ -11,7 +11,7 @@ export type TItemData = {
 }
 
 export type TAutocompleteItem = {
-  id: number
+  id: number | string
   text: string
   type: AutocompleteItemType
   onClick: onItemClick

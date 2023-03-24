@@ -2,6 +2,8 @@ const path = require('path');
 const TerserPlugin = require('terser-webpack-plugin');
 const ESLintPlugin = require('eslint-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const ForkTsCheckerWebpackPlugin = require('fork-ts-checker-webpack-plugin');
+
 
 const PATHS = {
     app: './src/index.tsx',
@@ -53,6 +55,7 @@ module.exports = {
         ],
       },
     plugins: [
+        new ForkTsCheckerWebpackPlugin(),
         new HtmlWebpackPlugin({
             template: './public/index.html'
         }),
