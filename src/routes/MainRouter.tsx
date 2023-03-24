@@ -1,19 +1,19 @@
 import React from 'react';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 
-import { View as MainPage } from 'screens/MainPage';
-import { View as SearchPage } from 'screens/SearchPage';
-import { View as ErrorPage } from 'screens/ErrorPage';
+const MainPageScreen = React.lazy(() => import('screens/MainPage').then(({ View }) => ({ default: View })));
+const SearchPageScreen = React.lazy(() => import('screens/SearchPage').then(({ View }) => ({ default: View })));
+const ErrorPageScreen = React.lazy(() => import('screens/ErrorPage').then(({ View }) => ({ default: View })));
 
 const router = createBrowserRouter([
   {
     path: '/',
-    element: <MainPage />,
-    errorElement: <ErrorPage />,
+    element: <React.Suspense fallback="/"><MainPageScreen /></React.Suspense>,
+    errorElement: <React.Suspense fallback="/"><ErrorPageScreen /></React.Suspense>,
   },
   {
     path: '/search',
-    element: <SearchPage />,
+    element: <React.Suspense fallback="/"><SearchPageScreen /></React.Suspense>,
   },
 ]);
 

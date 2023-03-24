@@ -8,6 +8,7 @@ export const LogoContainer = styled.div<TLogoContainer>`
     display: flex;
     justify-content: center;
     margin: 0 auto;
+    cursor: pointer;
 
     & span {
       font-family: 'Josefin Sans', sans-serif;    

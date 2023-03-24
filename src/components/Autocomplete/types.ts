@@ -5,7 +5,7 @@ export type TAutocomplete = {
 }
 
 export type TItemData = {
-  id: number
+  id: number | string
   text: string
   type: AutocompleteItemType
 }

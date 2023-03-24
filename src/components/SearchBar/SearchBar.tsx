@@ -1,6 +1,8 @@
 import React, {
-  ChangeEventHandler, useCallback, useState, FC, useRef, FocusEventHandler,
+  ChangeEventHandler, useCallback, useState, FC, useRef, FocusEventHandler, KeyboardEventHandler,
 } from 'react';
+import { nanoid } from 'nanoid';
+
 import { useNavigate } from 'react-router-dom';
 
 import mockData from 'mock.json';
@@ -39,6 +41,26 @@ export const SearchBar: FC<TSearchBar> = ({ initialValue = '' }) => {
     toggleAutocomplete(true);
   }, []);
 
+  const onKeyUp: KeyboardEventHandler<HTMLInputElement> = useCallback(({ key }) => {
+    if (!inputValue || inputValue.length < 2) return;
+
+    if (key === 'Enter') {
+      const historyItem = historyItems.find(({ text: historyItemText }) => inputValue === historyItemText);
+      let text = historyItem?.text;
+
+      if (!historyItem) {
+        text = inputValue;
+        setLocalStorageValue([...historyItems, { id: nanoid(5), text: inputValue, type: AutocompleteItemType.history }]);
+      }
+
+      toggleAutocomplete(false);
+      navigate({
+        pathname: '/search',
+        search: `?request=${text}`,
+      });
+    }
+  }, [historyItems, inputValue, navigate, setLocalStorageValue]);
+
   const onItemClick = useCallback((data: TItemData) => {
     const { text, id } = data;
 
@@ -73,6 +95,7 @@ export const SearchBar: FC<TSearchBar> = ({ initialValue = '' }) => {
         value={inputValue}
         onChange={onChange}
         onFocus={onFocus}
+        onKeyUp={onKeyUp}
         type="text"
         autoComplete="off"
       />
