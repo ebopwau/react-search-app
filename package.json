@@ -10,11 +10,14 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "homepage": "https://ebopwau.github.io/react-search-app",
   "scripts": {
     "build": "webpack --mode production",
     "serve": "webpack serve --mode development --hot",
     "lint": "eslint src/",
-    "verify": "npm run lint"
+    "verify": "npm run lint",
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d build"
   },
   "devDependencies": {
     "@babel/core": "^7.16.12",
@@ -45,6 +48,7 @@
     "eslint-plugin-react-hooks": "^4.5.0",
     "eslint-webpack-plugin": "^2.1.0",
     "fork-ts-checker-webpack-plugin": "^8.0.0",
+    "gh-pages": "^5.0.0",
     "html-webpack-plugin": "^5.5.0",
     "postcss-loader": "^7.0.0",
     "react-scripts": "^5.0.1",

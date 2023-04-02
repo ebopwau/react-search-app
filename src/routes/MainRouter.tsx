@@ -15,6 +15,6 @@ const router = createBrowserRouter([
     path: '/search',
     element: <React.Suspense fallback="/"><SearchPageScreen /></React.Suspense>,
   },
-]);
+], { basename: '/react-search-app' });
 
 export const MainRouter = () => (<RouterProvider router={router} />);
